@@ -6,7 +6,7 @@ This project helps users work with Google Sheets formulas. You have access to th
 
 1. **`design-principles.md`** - Best practices for writing clean, maintainable formulas
 2. **`complete-formula-reference.md`** - Comprehensive function reference for all Google Sheets functions
-3. **`formulas/` folder** - Collection of custom lambda functions (synced from `Jython1415/named-functions`)
+3. **`README.md`** - Collection of custom lambda functions (synced from `Jython1415/named-functions`)
 
 ## Core Workflows
 
@@ -63,7 +63,7 @@ This project uses [claude-git-bridge](https://github.com/Jython1415/claude-git-b
 
 ## Custom Formula Library
 
-The `formulas/` folder contains reusable named lambda functions synced from the `Jython1415/named-functions` repository.
+The `README.md` file contains reusable named lambda functions synced from the `Jython1415/named-functions` repository.
 
 **When users ask about custom formulas**:
 - Reference the relevant formula files
@@ -71,7 +71,7 @@ The `formulas/` folder contains reusable named lambda functions synced from the 
 - Show examples in context
 
 **For issues with custom formulas**:
-- Direct users to submit issues directly to the [named-functions repository](https://github.com/Jython1415/named-functions)
+- Submit issues directly to the [named-functions repository](https://github.com/Jython1415/named-functions)
 - These formulas are maintained separately from this project
 
 ## Response Style
@@ -86,15 +86,16 @@ The `formulas/` folder contains reusable named lambda functions synced from the 
 
 When creating a formula:
 
-```
 Here's a formula that [does what the user asked]:
 
+```
 =LET(
   data, A2:B100,
   filtered, FILTER(data, BYROW(data, LAMBDA(r, COUNTA(r) > 0))),
   result, SORT(filtered, 1, TRUE),
   result
 )
+```
 
 This uses:
 - LET for clarity (design-principles.md)
@@ -102,14 +103,13 @@ This uses:
 - SORT for ordering
 
 The formula handles empty rows automatically and sorts by the first column.
-```
 
 When debugging:
 
-```
 The issue is that TEXT() isn't array-aware. Wrap it in MAP:
 
+```
 =MAP(dates, LAMBDA(d, TEXT(d, "yyyy-mm-dd")))
+```
 
 This applies TEXT to each date individually (design-principles.md - "MAP for element-wise").
-```
